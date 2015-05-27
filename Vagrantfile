@@ -8,10 +8,10 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder ".", "/vagrant"
 
   # Add docker credentials
-  config.vm.provision "file", source: "~/.dockercfg", destination: "/home/docker/.dockercfg"
+  config.vm.provision "file", source: "~/.dockercfg", destination: "/root/.dockercfg"
 
   # Build base image
-  config.vm.provision "shell", inline: "docker build #{ENV['docker_user']}/base /vagrant"
+  config.vm.provision "shell", inline: "docker build -t #{ENV['docker_user']}/base /vagrant"
 
   # Publish image to dockerhub
   config.vm.provision "shell", inline: "docker push #{ENV['docker_user']}/base"

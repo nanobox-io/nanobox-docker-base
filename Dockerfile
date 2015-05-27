@@ -16,7 +16,7 @@ RUN mkdir -p /opt/local/sbin
 
 # Copy files
 ADD files/motd /etc/motd
-ADD files/sudoers /etc/motd/etc/sudoers
+ADD files/sudoers /etc/sudoers
 ADD files/bashrc /home/gopagoda/.bashrc
 ADD files/ssh_config /home/gopagoda/.ssh/config
 ADD files/sshd_config /opt/local/etc/ssh/sshd_config
