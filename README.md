@@ -21,6 +21,12 @@ To create and publish the image to nanobox/base simply run
 If the creation/publication fails for any reason, you may       
 modify the proper files and run `make publish` or `vagrant provision`    
         
+To login to the zone:
+```
+user: gonano
+pass: gonano
+```
+        
 TIP: If you forget to create a `docker_user` environment variable,      
 you can `vagrant ssh` and run `docker tag nanobox/base ${YOUR_USER}/base`      
 then push with `docker push ${YOUR_USER}/base`   

@@ -1,4 +1,4 @@
-# Pagoda Box sshd_config
+# nanobox sshd_config
  
 Port                    22 
 AuthorizedKeysFile      .ssh/authorized_keys 

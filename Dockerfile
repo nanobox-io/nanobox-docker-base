@@ -3,13 +3,13 @@ FROM ubuntu
 # Install from apt-get until packages are ready
 RUN apt-get -y update && apt-get -y install supervisor openssh-server curl vim && mkdir /var/run/sshd
 
-# Add gopagoda user
-RUN groupadd gopagoda
-RUN useradd -m -s '/bin/bash' -p `openssl passwd -1 gopagoda` -g gopagoda gopagoda
-RUN passwd -u gopagoda
+# Add gonano user
+RUN groupadd gonano
+RUN useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano
+RUN passwd -u gonano
 
 # Create needed directories
-RUN mkdir /home/gopagoda/.ssh && chown gopagoda. /home/gopagoda/.ssh
+RUN mkdir /home/gonano/.ssh && chown gonano. /home/gonano/.ssh
 RUN mkdir -p /opt/local/etc/ssh
 RUN mkdir -p /var/local/run
 RUN mkdir -p /opt/local/sbin
@@ -17,8 +17,8 @@ RUN mkdir -p /opt/local/sbin
 # Copy files
 ADD files/motd /etc/motd
 ADD files/sudoers /etc/sudoers
-ADD files/bashrc /home/gopagoda/.bashrc
-ADD files/ssh_config /home/gopagoda/.ssh/config
+ADD files/bashrc /home/gonano/.bashrc
+ADD files/ssh_config /home/gonano/.ssh/config
 ADD files/sshd_config /opt/local/etc/ssh/sshd_config
 ADD files/ssh_kernel_auth /opt/local/sbin/ssh_kernel_auth
 ADD files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
