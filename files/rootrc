@@ -10,6 +10,6 @@ if [ "$PS1" ]; then
         fi
 fi
 
-export PATH=/data/sbin:/data/bin:/opt/gonano/sbin:/opt/gonano/bin:$PATH
+export PATH=$PATH:/opt/gonano/sbin:/opt/gonano/bin:/data/sbin:/data/bin
 
 [ -f ~/.envars ] && source ~/.envars

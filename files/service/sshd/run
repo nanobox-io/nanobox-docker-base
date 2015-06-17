@@ -1,0 +1,3 @@
+#!/bin/sh -e
+exec 2>&1
+exec /usr/sbin/sshd -eD -f /opt/local/etc/ssh/sshd_config
