@@ -1,8 +1,5 @@
 FROM ubuntu
 
-# Install from apt-get until packages are ready
-RUN apt-get -y update && apt-get -y install runit openssh-server curl vim
-
 # Add gonano user
 RUN groupadd gonano
 RUN useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano
@@ -43,14 +40,7 @@ RUN curl -k http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | gun
 RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
 RUN /opt/gonano/sbin/pkg_admin rebuild
 RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
-RUN /opt/gonano/bin/pkgin -y in hookit hookyd
-#RUN /opt/gonano/bin/pkgin -y in narc openssh-server curl vim runit
-
-#TEMP - TEST WITHOUT
-# RUN curl -ksL https://github.com/pagodabox/hookyd/archive/v0.0.6.tar.gz | tar -C /opt/gonano/hookyd --strip-components=1 -zxf -
-# RUN echo "{\"port\":5540,\"ip\":\"0.0.0.0\",\"hooky\":\"hookit\",\"hook_dir\":\"/opt/gonano/hookit/mod/hooks\"}" > /opt/gonano/etc/hookyd/hookyd.conf
-# RUN echo "{\"port\":5540,\"ip\":\"0.0.0.0\",\"hooky\":\"hookit\",\"hook_dir\":\"/opt/gonano/hookit/mod/hooks\"}" > /opt/local/etc/hookyd/hookyd.conf
-# RUN ln -sf /opt/gonano/bin/ruby200 /opt/gonano/bin/ruby
+RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script curl vim runit narc
 
 # Add ssh keys
 RUN ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_rsa_key -N '' -t rsa
