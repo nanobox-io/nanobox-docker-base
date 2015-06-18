@@ -1,5 +1,15 @@
 FROM ubuntu
 
+# Install curl from apt-get so that we can pull the bootstrap
+RUN apt-get -y update && apt-get -y install curl
+
+# Install pkgin packages
+RUN curl -k http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | gunzip -c | tar -C / -xf -
+RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
+RUN /opt/gonano/sbin/pkg_admin rebuild
+RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
+RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc
+
 # Add gonano user
 RUN groupadd gonano
 RUN useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano
@@ -34,13 +44,6 @@ ADD scripts/. /var/tmp/
 
 # Install init
 RUN /var/tmp/install-init
-
-# Install pkgin packages
-RUN curl -k http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | gunzip -c | tar -C / -xf -
-RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
-RUN /opt/gonano/sbin/pkg_admin rebuild
-RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
-RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script curl vim runit narc
 
 # Add ssh keys
 RUN ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_rsa_key -N '' -t rsa
