@@ -10,13 +10,14 @@ RUN mkdir -p /opt/gonano/etc/pkgin
 RUN mkdir -p /opt/gonano/etc/hookyd
 
 # Install pkgin packages
-ADD http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz /opt/gonano
+ADD http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz /opt/gonano/
 RUN gunzip -c /opt/gonano/bootstrap.tar.gz | tar -C / -xf -
 RUN rm -f /opt/gonano/bootstrap.tar.gz
 RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
 RUN /opt/gonano/sbin/pkg_admin rebuild
 RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
 RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc
+ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
 
 # Add gonano user
 RUN groupadd gonano
