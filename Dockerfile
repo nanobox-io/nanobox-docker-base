@@ -1,8 +1,5 @@
 FROM ubuntu
 
-# Install curl from apt-get so that we can pull the bootstrap
-RUN apt-get -y update && apt-get -y install curl
-
 # Create folders for gonano pkgsrc bootstrap
 RUN mkdir -p /var/gonano/db
 RUN mkdir -p /opt/gonano/etc/ssh
@@ -13,7 +10,8 @@ RUN mkdir -p /opt/gonano/etc/pkgin
 RUN mkdir -p /opt/gonano/etc/hookyd
 
 # Install pkgin packages
-RUN curl -sk http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | gunzip -c | tar -C / -xf -
+ADD http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz /data/
+RUN gunzip -c /data/bootstrap.tar.gz | tar -C / -xf -
 RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
 RUN /opt/gonano/sbin/pkg_admin rebuild
 RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
