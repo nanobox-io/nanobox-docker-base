@@ -4,6 +4,6 @@ Port                    22
 AuthorizedKeysFile      .ssh/authorized_keys 
 PrintMotd               yes 
 UsePrivilegeSeparation  sandbox 
-PasswordAuthentication  yes 
-# AuthorizedKeysScript    /opt/local/sbin/ssh_kernel_auth 
+PasswordAuthentication  no 
+AuthorizedKeysScript    /opt/gonano/sbin/ssh_kernel_auth 
 UseDNS                  no

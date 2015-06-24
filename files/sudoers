@@ -1,5 +1,5 @@
 Defaults    env_reset
-Defaults    secure_path='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/local/sbin:/opt/local/bin'
+Defaults    secure_path='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gonano/sbin:/opt/gonano/bin'
 root    ALL=(ALL:ALL) ALL
 gonano  ALL=(ALL:ALL) NOPASSWD: ALL
 admin   ALL=(ALL:ALL) NOPASSWD: ALL
