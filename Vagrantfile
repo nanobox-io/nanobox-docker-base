@@ -10,7 +10,7 @@ SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box     = "nanobox/boot2docker"
-  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/v0.0.1/nanobox-boot2docker.box"
+  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/v0.0.4/nanobox-boot2docker.box"
 
   config.vm.synced_folder ".", "/vagrant"
 
