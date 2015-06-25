@@ -27,7 +27,6 @@ RUN passwd -u gonano
 # Create needed directories
 RUN mkdir /home/gonano/.ssh && chown gonano. /home/gonano/.ssh
 RUN mkdir -p /var/run/sshd
-RUN mkdir -p /var/log/hooky
 RUN mkdir -p /etc/environment.d
 
 

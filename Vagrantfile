@@ -10,7 +10,7 @@ SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box     = "nanobox/boot2docker"
-  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/v0.0.4/nanobox-boot2docker.box"
+  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/v0.0.6/nanobox-boot2docker.box"
 
   config.vm.synced_folder ".", "/vagrant"
 
@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: "docker push #{ENV['docker_user']}/base"
 
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", "1024"]
+    v.customize ["modifyvm", :id, "--memory", "1024", "--ioapic", "on"]
   end
 
 end
