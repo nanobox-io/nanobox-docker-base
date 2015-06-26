@@ -8,6 +8,8 @@ RUN mkdir -p /opt/gonano/sbin
 RUN mkdir -p /opt/gonano/hookit/mod
 RUN mkdir -p /opt/gonano/etc/pkgin
 RUN mkdir -p /opt/gonano/etc/hookyd
+#TEMP
+RUN mkdir -p /var/log/hookit/hookit
 
 # Install pkgin packages
 ADD http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz /opt/gonano/
@@ -29,7 +31,9 @@ RUN mkdir /home/gonano/.ssh && chown gonano. /home/gonano/.ssh
 RUN mkdir -p /var/run/sshd
 RUN mkdir -p /etc/environment.d
 
-
+#TEMP
+ADD https://raw.githubusercontent.com/pagodabox/hookit/44c133efd10fb7df5e677c1de795326bfe5c4de0/lib/hookit/resource/service.rb /opt/gonano/hookit/lib/hookit/resource/service.rb
+RUN sed -i 's/hook_dir/hookit_dir/g' /opt/gonano/hookyd/hookyd.lua
 # Copy files
 ADD files/motd /etc/motd
 ADD files/sudoers /etc/sudoers
