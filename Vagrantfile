@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+version = `curl -s https://api.github.com/repos/pagodabox/nanobox-boot2docker/releases/latest | json name`.strip
+
 $wait = <<SCRIPT
 echo "Waiting for docker sock file"
 while [ ! -S /var/run/docker.sock ]; do
@@ -10,7 +12,7 @@ SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box     = "nanobox/boot2docker"
-  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/v0.0.6/nanobox-boot2docker.box"
+  config.vm.box_url = "https://github.com/pagodabox/nanobox-boot2docker/releases/download/#{version}/nanobox-boot2docker.box"
 
   config.vm.synced_folder ".", "/vagrant"
 

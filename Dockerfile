@@ -16,8 +16,9 @@ RUN rm -f /opt/gonano/bootstrap.tar.gz
 RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
 RUN /opt/gonano/sbin/pkg_admin rebuild
 RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
-RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc curl
+RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc curl #wget
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
+RUN ln -s /etc/service /service
 
 # Add gonano user
 RUN groupadd gonano
