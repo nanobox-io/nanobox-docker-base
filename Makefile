@@ -2,9 +2,9 @@ all: base
 
 base:
 ifdef docker_user
-	vagrant up && vagrant destroy -f
+	vagrant up
 else
-	export docker_user='nanobox' && vagrant up && vagrant destroy -f
+	export docker_user='nanobox' && vagrant up
 endif
 
 publish:
