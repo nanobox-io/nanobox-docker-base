@@ -1,22 +1,28 @@
 FROM ubuntu
 
 # Create folders for gonano pkgsrc bootstrap
-RUN mkdir -p /var/gonano/db
-RUN mkdir -p /opt/gonano/etc/ssh
-RUN mkdir -p /var/gonano/run
-RUN mkdir -p /opt/gonano/sbin
-RUN mkdir -p /opt/gonano/hookit/mod
-RUN mkdir -p /opt/gonano/etc/pkgin
-RUN mkdir -p /opt/gonano/etc/hookyd
+RUN mkdir -p /var/gonano/db && \
+    mkdir -p /opt/gonano/etc/ssh && \
+    mkdir -p /var/gonano/run && \
+    mkdir -p /opt/gonano/sbin && \
+    mkdir -p /opt/gonano/hookit/mod && \
+    mkdir -p /opt/gonano/etc/pkgin && \
+    mkdir -p /opt/gonano/etc/hookyd
+
+# Install curl and wget
+RUN apt-get update -qq && \
+    apt-get install -y curl wget && \
+    apt-get clean all && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install pkgin packages
-ADD http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz /opt/gonano/
-RUN tar -C / -zxf /opt/gonano/bootstrap.tar.gz
-RUN rm -f /opt/gonano/bootstrap.tar.gz
-RUN echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf
-RUN /opt/gonano/sbin/pkg_admin rebuild
-RUN rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up
-RUN /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc curl #wget
+RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
+    echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf && \
+    /opt/gonano/sbin/pkg_admin rebuild && \
+    rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up && \
+    /opt/gonano/bin/pkgin -y in hookit hookyd openssh-auth-script vim runit narc && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/gonano/db/pkgin
+
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
 RUN ln -s /etc/service /service
 
@@ -54,9 +60,7 @@ RUN /opt/gonano/bin/ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_dsa_key -N '' -t 
 RUN /opt/gonano/bin/ssh-keygen -f /opt/gonano/etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
 
 # Cleanup disk
-RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/gonano/db/pkgin
-# RUN dd if=/dev/zero of=temp bs=1M; rm -f temp && sync && sync
 
 # Allow ssh
 EXPOSE 22
