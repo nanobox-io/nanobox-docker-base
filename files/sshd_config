@@ -1,9 +1,0 @@
-# nanobox sshd_config
- 
-Port                    22 
-AuthorizedKeysFile      .ssh/authorized_keys 
-PrintMotd               yes 
-UsePrivilegeSeparation  sandbox 
-PasswordAuthentication  no 
-AuthorizedKeysScript    /opt/gonano/sbin/ssh_kernel_auth 
-UseDNS                  no
