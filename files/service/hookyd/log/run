@@ -1,5 +1,0 @@
-#!/bin/sh -e
- 
-[ -d /var/log/service/hookyd ] || mkdir -p /var/log/service/hookyd
-cd /var/log/service/hookyd
-exec svlogd -v -ttt /var/log/service/hookyd

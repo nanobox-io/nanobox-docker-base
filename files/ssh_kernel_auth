@@ -1,3 +1,0 @@
-#!/bin/bash
-# Highly insecure, only for local dev env
-exit 0

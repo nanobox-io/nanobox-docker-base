@@ -1,5 +1,0 @@
-#!/bin/sh -e
- 
-[ -d /var/log/service/sshd ] || mkdir -p /var/log/service/sshd
-cd /var/log/service/sshd
-exec svlogd -v -ttt /var/log/service/sshd
