@@ -42,6 +42,7 @@ RUN passwd -u gonano
 RUN mkdir -p /etc/environment.d
 
 # Copy files
+ADD files/bin/* /sbin/
 ADD files/motd /etc/motd
 ADD files/sudoers /etc/sudoers
 ADD files/rootrc /root/.bashrc
