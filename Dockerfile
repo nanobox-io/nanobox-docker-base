@@ -26,7 +26,9 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
       /tmp/* \
       /var/tmp/* \
       /var/gonano/db/pkgin \
-      /opt/gonano/share/{doc,ri,examples} \
+      /opt/gonano/share/doc \
+      /opt/gonano/share/ri \
+      /opt/gonano/share/examples \
       /opt/gonano/man
 
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
