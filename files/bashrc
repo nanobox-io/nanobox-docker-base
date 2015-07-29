@@ -10,6 +10,29 @@ if [ "$PS1" ]; then
         fi
 fi
 
-export PATH=/data/sbin:/data/bin:/opt/gonano/sbin:/opt/gonano/bin:$PATH
+# clear PATH so we can explicitly build it
+export PATH=""
 
-[ -f ~/.envars ] && source ~/.envars
+# source any environment variables that were dropped by engines
+# including, perhaps, a custom PATH
+if [ -d /data/etc/env.d ]; then
+        for env in $(ls $/data/etc/env.d); do
+                export "$env=$(cat /data/etc/env.d/$env)"
+        done
+fi
+
+# if the engine manipulated the PATH, let's append to it instead of reset
+if [[ -n $PATH ]]; then
+        export PATH=${PATH}:
+fi
+
+# set the ubuntu defaults
+export PATH=${PATH}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# prefix ubuntu defaults with the gonano pkgsrc bootstrap
+export PATH=/opt/gonano/sbin:/opt/gonano/bin:${PATH}
+
+# if we have a base bootstrap, then let's add that first
+if [ -d /data ]; then
+        export PATH=/data/sbin:/data/bin:${PATH}
+fi
