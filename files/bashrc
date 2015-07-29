@@ -16,7 +16,7 @@ export PATH=""
 # source any environment variables that were dropped by engines
 # including, perhaps, a custom PATH
 if [ -d /data/etc/env.d ]; then
-        for env in $(ls $/data/etc/env.d); do
+        for env in $(ls /data/etc/env.d); do
                 export "$env=$(cat /data/etc/env.d/$env)"
         done
 fi
