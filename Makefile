@@ -1,18 +1,20 @@
-all: base
+all: build publish
 
-base:
-ifdef docker_user
-	vagrant up
-else
-	export docker_user='nanobox' && vagrant up
-endif
+stability?=latest
+
+login:
+	@vagrant ssh -c "docker login"
+
+build:
+	@echo "Building 'base' image..."
+	@vagrant ssh -c "docker build -t nanobox/base /vagrant"
 
 publish:
-ifdef docker_user
-	vagrant provision
-else
-	export docker_user='nanobox' && vagrant provision
-endif
+	@echo "Tagging 'base' image..."
+	@vagrant ssh -c "docker tag nanobox/base nanobox/base:${stability}"
+	@echo "Publishing 'base:${stability}'..."
+	@vagrant ssh -c "docker push nanobox/base:${stability}"
 
 clean:
-	vagrant destroy -f
+	@echo "Removing all images..."
+	@vagrant ssh -c "docker rmi $(docker images -q)"
