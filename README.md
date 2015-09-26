@@ -1,6 +1,6 @@
-## nanobox-docker-build
+## nanobox-docker-base
 
-This repo contains the files necessary to create a docker 'code' image for [Nanobox](http://nanobox.io) consumption.
+This repo contains the files necessary to create the base docker image for [Nanobox](http://nanobox.io) consumption.
 
 #### Requirements
 
