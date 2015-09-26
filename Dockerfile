@@ -6,7 +6,8 @@ RUN mkdir -p /etc/environment.d && \
     mkdir -p /var/gonano/run && \
     mkdir -p /data && \
     mkdir -p /var/nanobox && \
-    mkdir -p /data/var/db
+    mkdir -p /data/var/db && \
+    mkdir -p /var/nanobox
 
 # Install curl and wget
 RUN apt-get update -qq && \
