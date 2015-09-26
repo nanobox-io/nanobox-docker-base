@@ -1,7 +1,8 @@
 FROM ubuntu
 
-# Create folders for gonano pkgsrc bootstrap
-RUN mkdir -p /var/gonano/db && \
+# Create needed directories
+RUN mkdir -p /etc/environment.d && \
+    mkdir -p /var/gonano/db && \
     mkdir -p /var/gonano/run && \
     mkdir -p /data && \
     mkdir -p /var/nanobox && \
@@ -48,9 +49,6 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/var/db/pkgin/cache && \
     chown -R gonano /data
 
-# Create needed directories
-RUN mkdir -p /etc/environment.d
-
 # Copy files
 ADD files/bin/* /sbin/
 ADD files/motd /etc/motd
@@ -61,4 +59,7 @@ ADD files/environment /etc/environment
 RUN chmod 644 /etc/environment
 
 # Cleanup disk
-RUN rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
+RUN rm -rf \
+      /tmp/* \
+      /var/tmp/* \
+      /var/lib/apt/lists/*
