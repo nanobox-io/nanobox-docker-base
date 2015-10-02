@@ -17,4 +17,4 @@ publish:
 
 clean:
 	@echo "Removing all images..."
-	@vagrant ssh -c "for image in \$$(docker images -q | sort | uinq); do docker rmi -f \$$image; done"
+	@vagrant ssh -c "for image in \$$(docker images -q | sort | uniq); do docker rmi -f \$$image; done"
