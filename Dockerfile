@@ -1,25 +1,25 @@
 FROM ubuntu
 
 # Create needed directories
-RUN mkdir -p /etc/environment.d && \
-    mkdir -p /var/gonano/db && \
-    mkdir -p /var/gonano/run && \
-    mkdir -p /data && \
-    mkdir -p /var/nanobox && \
-    mkdir -p /data/var/db && \
-    mkdir -p /var/nanobox
+RUN mkdir -p \
+      /etc/environment.d \
+      /var/gonano/db \
+      /var/gonano/run \
+      /data \
+      /var/nanobox \
+      /data/var/db \
+      /var/nanobox
 
 # Install curl and wget
 RUN apt-get update -qq && \
     apt-get install -y curl wget vim && \
-    apt-get clean all && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean all
 
 # Install pkgsrc "gonano" bootstrap
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
     echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf && \
     /opt/gonano/sbin/pkg_admin rebuild && \
-    rm -rf /var/gonano/db/pkgin && /opt/gonano/bin/pkgin -y up && \
+    rm -rf /var/gonano/db/pkgin && \opt/gonano/bin/pkgin -y up && \
     /opt/gonano/bin/pkgin -y in hookit && \
     rm -rf \
       /var/gonano/db/pkgin \
@@ -32,15 +32,15 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
 
 # Add gonano user
-RUN groupadd gonano
-RUN useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano
-RUN passwd -u gonano
+RUN groupadd gonano && \
+    useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano && \
+    passwd -u gonano
 
 # install pkgsrc "base" bootstrap
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
     echo "http://pkgsrc.nanobox.io/nanobox/base/Linux/" > /data/etc/pkgin/repositories.conf && \
     /data/sbin/pkg_admin rebuild && \
-    rm -rf /data/var/db/pkgin && /data/bin/pkgin -y up && \
+    rm -rf /data/var/db/pkgin && \data/bin/pkgin -y up && \
     rm -rf \
       /data/var/db/pkgin \
       /data/share/doc \
@@ -51,16 +51,7 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
     chown -R gonano /data
 
 # Copy files
-ADD files/bin/* /sbin/
-ADD files/motd /etc/motd
-ADD files/sudoers /etc/sudoers
-ADD files/rootrc /root/.bashrc
-ADD files/bashrc /home/gonano/.bashrc
-ADD files/environment /etc/environment
-RUN chmod 644 /etc/environment
+ADD files/. /
 
 # Cleanup disk
-RUN rm -rf \
-      /tmp/* \
-      /var/tmp/* \
-      /var/lib/apt/lists/*
+RUN docker_prepare
