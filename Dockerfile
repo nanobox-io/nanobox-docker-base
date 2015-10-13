@@ -13,7 +13,7 @@ RUN mkdir -p \
 # Install curl and wget
 RUN apt-get update -qq && \
     apt-get install -y curl wget vim && \
-    apt-get clean all && \
+    apt-get clean all
 
 # Install pkgsrc "gonano" bootstrap
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
