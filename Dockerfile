@@ -48,10 +48,13 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/share/examples \
       /data/opt/gonano/man \
       /data/var/db/pkgin/cache && \
-    chown -R gonano /data
+    chown -R gonano:gonano /data
 
 # Copy files
 ADD files/. /
+
+# Own all gonano files
+RUN chown -R gonano:gonano /home/gonano
 
 # Cleanup disk
 RUN docker_prepare
