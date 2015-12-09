@@ -56,5 +56,11 @@ ADD files/. /
 # Own all gonano files
 RUN chown -R gonano:gonano /home/gonano
 
+# Generate and set locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 # Cleanup disk
 RUN docker_prepare
