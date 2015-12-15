@@ -31,11 +31,11 @@ if [ -d /data ]; then
   export PATH=${PATH}/data/sbin:/data/bin:
 fi
 
-# set the ubuntu defaults
-export PATH=${PATH}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
 # prefix ubuntu defaults with the gonano pkgsrc bootstrap
-export PATH=/opt/gonano/sbin:/opt/gonano/bin:${PATH}
+export PATH=${PATH}/opt/gonano/sbin:/opt/gonano/bin
+
+# set the ubuntu defaults
+export PATH=${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # with the environment variables exported and the PATH set
 # we need to source any custom profile scripts
