@@ -28,9 +28,9 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
       /opt/gonano/share/examples \
       /opt/gonano/man
 
-# symlink certs folder from /etc/ssl/certs to /data/etc/openssl/certs
-RUN rm -rf /data/etc/openssl/certs/ && \
-    ln -sf /etc/ssl/certs /data/etc/openssl/certs
+# symlink certs folder from /etc/ssl/certs to /opt/gonano/etc/openssl/certs
+RUN rm -rf /opt/gonano/etc/openssl/certs/ && \
+    ln -sf /etc/ssl/certs /opt/gonano/etc/openssl/certs
 
 # add gonano binaries on path 
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
