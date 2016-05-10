@@ -12,7 +12,7 @@ RUN mkdir -p \
 
 # Install curl and wget
 RUN apt-get update -qq && \
-    apt-get install -y curl wget vim sudo && \
+    apt-get install -y curl wget vim sudo net-tools && \
     apt-get clean all
 
 # Install pkgsrc "gonano" bootstrap
