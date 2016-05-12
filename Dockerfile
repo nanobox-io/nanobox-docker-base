@@ -20,7 +20,7 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
     echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf && \
     /opt/gonano/sbin/pkg_admin rebuild && \
     rm -rf /var/gonano/db/pkgin && \opt/gonano/bin/pkgin -y up && \
-    /opt/gonano/bin/pkgin -y in hookit && \
+    /opt/gonano/bin/pkgin -y in hookit siphon && \
     rm -rf \
       /var/gonano/db/pkgin \
       /opt/gonano/share/doc \
