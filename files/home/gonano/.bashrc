@@ -5,9 +5,11 @@ if [ "$PS1" ]; then
   HISTCONTROL=ignoreboth
   HISTIGNORE="[bf]g:exit:quit"
   RED="\[$(tput setaf 1)\]"
-  GREEN="\[$(tput setaf 2)\]"
+  YELLOW="\[$(tput setaf 3)\]"
+  BLUE="\[$(tput setaf 6)\]"
   RESET="\[$(tput sgr0)\]"
-  PS1="${GREEN}\w ${RESET}${RED}$ ${RESET}"
+  PS1="${BLUE}\u@\H${RESET}${RED}:${RESET}${YELLOW}\w ${RESET}${RED}\\$ ${RESET}"
+  PS2="${RED}> ${RESET}"
 fi
 
 # clear PATH so we can explicitly build it
