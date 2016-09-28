@@ -23,6 +23,13 @@ if [ -d /data/etc/env.d ]; then
   done
 fi
 
+# source any environment variables that have been added by hooks
+if [ -d /etc/env.d ]; then
+  for env in $(/bin/ls /etc/env.d); do
+    export "$env=$(/bin/cat /etc/env.d/$env)"
+  done
+fi
+
 # if the engine manipulated the PATH, let's append to it instead of reset
 if [[ -n $PATH ]]; then
   export PATH=${PATH}:
