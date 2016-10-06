@@ -56,6 +56,11 @@ ADD files/. /
 # Own all gonano files
 RUN chown -R gonano:gonano /home/gonano
 
+# Set Permissions on the /root folder and /root/.ssh folder
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root && \
+    chmod 0700 /root/.ssh
+
 # Generate and set locale
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
