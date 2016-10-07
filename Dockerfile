@@ -19,7 +19,8 @@ RUN apt-get update -qq && \
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
     echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf && \
     /opt/gonano/sbin/pkg_admin rebuild && \
-    rm -rf /var/gonano/db/pkgin && \opt/gonano/bin/pkgin -y up && \
+    rm -rf /var/gonano/db/pkgin && \
+    /opt/gonano/bin/pkgin -y up && \
     /opt/gonano/bin/pkgin -y in hookit siphon && \
     rm -rf \
       /var/gonano/db/pkgin \
@@ -40,7 +41,8 @@ RUN groupadd gonano && \
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
     echo "http://pkgsrc.nanobox.io/nanobox/base/Linux/" > /data/etc/pkgin/repositories.conf && \
     /data/sbin/pkg_admin rebuild && \
-    rm -rf /data/var/db/pkgin && \data/bin/pkgin -y up && \
+    rm -rf /data/var/db/pkgin && \
+    /data/bin/pkgin -y up && \
     rm -rf \
       /data/var/db/pkgin \
       /data/share/doc \
