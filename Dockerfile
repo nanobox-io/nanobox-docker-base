@@ -48,7 +48,7 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/share/doc \
       /data/share/ri \
       /data/share/examples \
-      /data/opt/gonano/man \
+      /data/man \
       /data/var/db/pkgin/cache && \
     chown -R gonano:gonano /data
 
