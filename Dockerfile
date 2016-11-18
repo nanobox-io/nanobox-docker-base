@@ -47,7 +47,8 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/var/db/pkgin/cache
 
 # Add gonano user
-RUN groupadd gonano && \
+RUN mkdir -p /data/var/home && \
+    groupadd gonano && \
     useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano -d /data/var/home/gonano && \
     passwd -u gonano
 
