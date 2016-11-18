@@ -44,8 +44,7 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/share/ri \
       /data/share/examples \
       /data/man \
-      /data/var/db/pkgin/cache && \
-    chown -R gonano:gonano /data
+      /data/var/db/pkgin/cache
 
 # Add gonano user
 RUN groupadd gonano && \
@@ -56,7 +55,8 @@ RUN groupadd gonano && \
 ADD files/. /
 
 # Own all gonano files
-RUN chown -R gonano:gonano /data/var/home/gonano
+RUN chown -R gonano:gonano /data/var/home/gonano && \
+    chown -R gonano:gonano /data
 
 # Set Permissions on the /root folder and /root/.ssh folder
 RUN mkdir -p /root/.ssh && \
