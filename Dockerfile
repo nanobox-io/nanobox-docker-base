@@ -56,8 +56,7 @@ RUN mkdir -p /data/var/home && \
 ADD files/. /
 
 # Own all gonano files
-RUN chown -R gonano:gonano /data/var/home/gonano && \
-    chown -R gonano:gonano /data
+RUN chown -R gonano:gonano /data
 
 # Set Permissions on the /root folder and /root/.ssh folder
 RUN mkdir -p /root/.ssh && \
