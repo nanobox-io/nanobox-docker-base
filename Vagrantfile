@@ -38,12 +38,19 @@ Vagrant.configure(2) do |config|
     done
   SCRIPT
 
+  # install docker-squash
+  config.vm.provision "shell", inline: <<-SCRIPT
+    apt-get install python-pip
+    pip install docker-squash
+  SCRIPT
+
   # build the docker image
   config.vm.provision "shell", inline: <<-SCRIPT
     echo "Building docker image..."
     cd /vagrant
-    docker build -t nanobox/base --no-cache=true -f Dockerfile . 
-    docker tag -f nanobox/base nanobox/base
+    docker build -t nanobox/base --no-cache=true -f Dockerfile .
+    docker-squash -t nanobox/base:squashed --tmp-dir /var/tmp/squasher nanobox/base
+    docker tag nanobox/base:squashed nanobox/base
   SCRIPT
 
 end
