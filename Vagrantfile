@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
     echo "Building docker image..."
     cd /vagrant
     docker build -t nanobox/base --no-cache=true -f Dockerfile .
-    docker-squash -t nanobox/base:squashed --tmp-dir /var/tmp/sqasher nanobox/base
+    docker-squash -t nanobox/base:squashed --tmp-dir /var/tmp/squasher nanobox/base
     docker tag nanobox/base:squashed nanobox/base
   SCRIPT
 
