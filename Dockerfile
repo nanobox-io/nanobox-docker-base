@@ -32,6 +32,19 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
 # add gonano binaries on path 
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
 
+# Add gonano user
+RUN mkdir -p /data/var/home && \
+    groupadd gonano && \
+    useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano -d /data/var/home/gonano && \
+    passwd -u gonano
+
+# Copy files
+ADD files/. /
+
+RUN chown -R gonano:gonano /data 
+
+USER gonano
+
 # install pkgsrc "base" bootstrap
 RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
     echo "http://pkgsrc.nanobox.io/nanobox/base/Linux/" > /data/etc/pkgin/repositories.conf && \
@@ -46,17 +59,7 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -
       /data/man \
       /data/var/db/pkgin/cache
 
-# Add gonano user
-RUN mkdir -p /data/var/home && \
-    groupadd gonano && \
-    useradd -m -s '/bin/bash' -p `openssl passwd -1 gonano` -g gonano gonano -d /data/var/home/gonano && \
-    passwd -u gonano
-
-# Copy files
-ADD files/. /
-
-# Own all gonano files
-RUN chown -R gonano:gonano /data
+USER root
 
 # Set Permissions on the /root folder and /root/.ssh folder
 RUN mkdir -p /root/.ssh && \
