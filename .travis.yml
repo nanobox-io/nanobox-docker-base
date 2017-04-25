@@ -5,6 +5,8 @@ services:
 
 before_install:
   - docker build -t nanobox/base -f Dockerfile .
+  - sudo apt-get -y install python-pip
+  - sudo pip install docker-squash
 
 script: sudo tests/run.sh
 
@@ -12,11 +14,13 @@ after_success:
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker build -t ${NAMESPACE}/base .
-  - docker tag ${NAMESPACE}/base ${NAMESPACE}/base:beta;
+  - docker-squash -t ${NAMESPACE}/base:squashed --tmp-dir /var/tmp/squasher ${NAMESPACE}/base
+  - docker tag ${NAMESPACE}/base:squashed ${NAMESPACE}/base:beta;
   - docker push ${REMOTE}${NAMESPACE}/base:beta;
   - if [ "$BRANCH" == "master" ]; then
+    docker tag ${NAMESPACE}/base:squashed ${NAMESPACE}/base;
     docker push ${REMOTE}${NAMESPACE}/base;
     else
-    docker tag ${NAMESPACE}/base ${NAMESPACE}/base:${BRANCH//\//_};
+    docker tag ${NAMESPACE}/base:squashed ${NAMESPACE}/base:${BRANCH//\//_};
     docker push ${REMOTE}${NAMESPACE}/base:${BRANCH//\//_};
     fi
