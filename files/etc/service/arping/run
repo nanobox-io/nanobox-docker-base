@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+# redirect stderr to stdout
+exec 2>&1
+
+exec bash -c "while true; do ip -o addr show | grep -v inet6 | awk '{print \$2,\$4}' | cut -f1  -d'/' | while read i; do arping -A -c 1 -w 1 -I \$i > /dev/null; done; sleep 30; done"
