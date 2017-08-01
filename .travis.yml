@@ -24,5 +24,4 @@ after_success:
     else
     docker tag ${NAMESPACE}/base:squashed ${NAMESPACE}/base:${BRANCH//\//_};
     docker push ${REMOTE}${NAMESPACE}/base:${BRANCH//\//_};
-    curl -s -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Travis-API-Version: 3" -H "Authorization: token ${TRAVIS_TOKEN}" -d "{\"request\":{\"branch\":\"master\"}}" https://api.travis-ci.org/repo/nanobox-io%2Fnanobox-docker-runit/requests;
     fi'
