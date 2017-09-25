@@ -16,8 +16,8 @@ RUN apt-get update -qq && \
     apt-get clean all
 
 # Install pkgsrc "gonano" bootstrap
-RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
-    echo "http://pkgsrc.nanobox.io/nanobox/gonano/Linux/" > /opt/gonano/etc/pkgin/repositories.conf && \
+RUN curl -s http://d7zr21m3kwv6q.cloudfront.net/nanobox/gonano/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
+    echo "http://d7zr21m3kwv6q.cloudfront.net/nanobox/gonano/Linux" > /opt/gonano/etc/pkgin/repositories.conf && \
     /opt/gonano/sbin/pkg_admin rebuild && \
     rm -rf /var/gonano/db/pkgin && \
     /opt/gonano/bin/pkgin -y up && \
@@ -33,8 +33,8 @@ RUN curl -s http://pkgsrc.nanobox.io/nanobox/gonano/Linux/bootstrap.tar.gz | tar
 ENV PATH /opt/gonano/sbin:/opt/gonano/bin:$PATH
 
 # install pkgsrc "base" bootstrap
-RUN curl -s http://pkgsrc.nanobox.io/nanobox/base/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
-    echo "http://pkgsrc.nanobox.io/nanobox/base/Linux/" > /data/etc/pkgin/repositories.conf && \
+RUN curl -s http://d7zr21m3kwv6q.cloudfront.net/nanobox/base/Linux/bootstrap.tar.gz | tar -C / -zxf - && \
+    echo "http://d7zr21m3kwv6q.cloudfront.net/nanobox/base/Linux" > /data/etc/pkgin/repositories.conf && \
     /data/sbin/pkg_admin rebuild && \
     rm -rf /data/var/db/pkgin && \
     /data/bin/pkgin -y up && \
