@@ -6,7 +6,7 @@ services:
 before_install:
   - docker build -t nanobox/base -f Dockerfile .
   - sudo apt-get -y install python-pip
-  - sudo pip install docker-squash
+  - sudo pip install docker==2.7.0 docker-squash
 
 script: sudo tests/run.sh
 
