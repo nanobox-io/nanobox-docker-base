@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 
 # Create needed directories
 RUN mkdir -p \
